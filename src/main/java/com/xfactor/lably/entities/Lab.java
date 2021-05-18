@@ -1,10 +1,24 @@
 package com.xfactor.lably.entities;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "tbl_lab")
 public class Lab
 {
+    @Id
+    @GeneratedValue
+    private Long Id;
     private String name;
     private String address;
     private String phone;
     private String pincode;
+    public Long getId() {
+        return Id;
+    }
+    public void setId(Long id) {
+        Id = id;
+    }
     public String getName() {
         return name;
     }
