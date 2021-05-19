@@ -4,7 +4,6 @@ import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,15 +33,18 @@ public class AdminController
     }
     @GetMapping("/getAdminByUsername")
     public Admin getAdminByUsername(@RequestParam String username) {
-        Admin admin = null;
-        List<Admin> persistedAdmins = adminRepository.findAll();
-        for (Admin a1 : persistedAdmins) {
-            if (a1.getName().equalsIgnoreCase(username))
-            {
-                return a1;
-            }
-
-        }
+        Admin admin = adminRepository.findByUsername(username);
         return admin;
     }    
+    @GetMapping("/deleteAdminById")
+    public void deleteAdminById(@RequestParam Long id)
+    {
+        adminRepository.deleteById(id);
+    }
+    @GetMapping("/deleteAdminByUsername")
+    public void deleteAdminByUsername(@RequestParam String username)
+    {
+        Admin admin = adminRepository.findByUsername(username);
+        adminRepository.delete(admin);
+    }
 }
